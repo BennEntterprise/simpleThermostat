@@ -5,18 +5,20 @@ import Thermostat from './components/Thermostat';
 import ControlPanel from './components/ControlPanel'
 
 class App extends React.Component {
-
+  constructor(props){
+    super(props)
+    this.state = {
+      temp: 70
+    }
+  }
   handleClick = () => {
     alert("clicked somethinhg")
-    this.setState({
-      temp: 70
-    })
+    // this.setState({
+    //   temp: 70
+    // })
   }
 
 
-  state = {
-    temp: 100
-  }
 
   render(){
     return (

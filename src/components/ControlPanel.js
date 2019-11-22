@@ -1,18 +1,15 @@
 import React from 'react';
 
-class ControlPanel extends React.Component{
-  constructor(props){
-    super(props)
-  }
+const ControlPanel =(props) => {
 
-  render(){
-    return(
-      <div>
-      <input type='button' value="Down" onClick={this.props.handleClick}></input>
-        <input type='button' value="Up" onClick={this.props.handleClick}></input>
-      </div>
-    )
-  }
+  const {alterTemp} = props
+  return(
+    <div>
+    <input type='button' value="Down" onClick={alterTemp}></input>
+      <input type='button' value="Up" onClick={alterTemp}></input>
+    </div>
+  )
+  
 }
 
 export default ControlPanel;

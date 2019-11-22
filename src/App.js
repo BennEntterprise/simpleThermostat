@@ -11,8 +11,9 @@ class App extends React.Component {
       temp: 70
     }
   }
-  handleClick = () => {
+  adjustTemp = (e) => {
     alert("clicked somethinhg")
+    console.log(e)
     // this.setState({
     //   temp: 70
     // })
@@ -24,7 +25,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Thermostat temp= { this.state.temp } />
-        <ControlPanel onClick={ this.handleClick }/>
+        <ControlPanel alterTemp={ this.adjustTemp }/>
       </div>
     );
   }

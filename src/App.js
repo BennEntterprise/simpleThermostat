@@ -12,14 +12,18 @@ class App extends React.Component {
     }
   }
   adjustTemp = (e) => {
-    alert("clicked somethinhg")
-    console.log(e)
-    // this.setState({
-    //   temp: 70
-    // })
+    console.log(e.target.value)
+    switch(e.target.value){
+      case 'Down': 
+        return this.setState({temp: this.state.temp -1}); 
+      case 'Up': 
+        return this.setState({temp: this.state.temp + 1})
+      default: 
+        return;
+    }
   }
 
-
+  
 
   render(){
     return (

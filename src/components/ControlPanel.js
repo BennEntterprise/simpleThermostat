@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import temperatureContext from '../context/TemperatureContext'
+
 
 const ControlPanel =(props) => {
 
-  const {alterTemp} = props
+  const context = useContext(temperatureContext)
   return(
     <div>
-    <input type='button' value="Down" onClick={alterTemp}></input>
-      <input type='button' value="Up" onClick={alterTemp}></input>
+      <input type='button' value="Down" onClick={context.adjustTemp}></input>
+      <input type='button' value="Up" onClick={context.adjustTemp}></input>
     </div>
   )
   

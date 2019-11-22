@@ -1,38 +1,78 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 
 import './App.css';
+
+//Context/State Related items
+import TemperatureContext from './context/TemperatureContext'
+import temperatureReducer from './context/temperatureReducer'
+import { INCREASE_TEMP, DECREASE_TEMP, UPDATE_DELTA } from './context/types'
+
+//Components
 import Thermostat from './components/Thermostat';
 import ControlPanel from './components/ControlPanel'
+import DeltaSetting from './components/DeltaSetting'
 
-class App extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      temp: 70
-    }
+const App = (props) => {
+
+  const initialState = {
+    temp: 50
   }
-  adjustTemp = (e) => {
-    console.log(e.target.value)
+
+  const increaseTemp = (delta) => {
+    console.log('inside increase temp')
+    dispatch({
+      type: INCREASE_TEMP, 
+      payload: delta
+    })
+  }
+
+  const decreaseTemp = (delta) => {
+    console.log('inside decrease temp')
+    dispatch({
+      type: DECREASE_TEMP, 
+      payload: delta
+    })
+  }
+
+  const updateDelta = (e) => {
+    dispatch({
+      type: UPDATE_DELTA, 
+      payload: parseInt(e.target.value)
+    })
+  }
+
+  const [state, dispatch] = useReducer(temperatureReducer, initialState)
+
+  const adjustTemp = (e) => {
+    let delta = parseInt(state.delta)
     switch(e.target.value){
       case 'Down': 
-        return this.setState({temp: this.state.temp -1}); 
+        return decreaseTemp(-1 *delta)
       case 'Up': 
-        return this.setState({temp: this.state.temp + 1})
+        return increaseTemp(delta)
       default: 
         return;
     }
   }
 
-  
 
-  render(){
-    return (
-      <div className="App">
-        <Thermostat temp= { this.state.temp } />
-        <ControlPanel alterTemp={ this.adjustTemp }/>
-      </div>
-    );
-  }
+
+  return (
+    <div className="App">
+      <TemperatureContext.Provider
+        value={{
+          temp: state.temp, 
+          delta: 5,
+          adjustTemp, 
+          updateDelta
+        }}
+      >
+        <Thermostat  />
+        <ControlPanel />
+        <DeltaSetting />
+      </TemperatureContext.Provider>
+    </div>
+  );
 }
 
 export default App;
